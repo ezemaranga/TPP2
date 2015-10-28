@@ -1,6 +1,6 @@
 public interface ABBTDA {
 	
-	int raiz();
+	Cita raiz();
 	
 	ABBTDA hijoIzq();
 	
@@ -10,8 +10,8 @@ public interface ABBTDA {
 	
 	void inicializarArbol();
 	
-	void agregarElemento(int x);
+	void agregarElemento(Cita cita);
 	
-	void eliminarElemento(int x);
+	void eliminarElemento(Tiempo inicio);
 	
 }

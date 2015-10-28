@@ -3,12 +3,12 @@ public interface CalendarioTDA {
 	
 	void inicializar();
 	
-	void agregar(String dia, Tiempo inicio, Tiempo duracion);
+	void agregar(int dia, Tiempo inicio, Tiempo duracion) throws Exception;
 	
-	void eliminar(String dia);
+	void eliminar(int dia) throws Exception;
 	
-	void eliminar(String dia, Tiempo inicio);
+	void eliminar(int dia, Tiempo inicio) throws Exception;
 	
-	ABBTDA recuperar(String dia);
+	ABBTDA recuperar(int dia) throws Exception;
 
 }
