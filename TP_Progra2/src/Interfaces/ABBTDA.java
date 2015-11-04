@@ -1,3 +1,7 @@
+package Interfaces;
+import tp.Cita;
+import tp.Tiempo;
+
 public interface ABBTDA {
 	
 	Cita raiz();

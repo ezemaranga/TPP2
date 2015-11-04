@@ -1,3 +1,4 @@
+package tp;
 public class Tiempo {
 	
 	int horas;
