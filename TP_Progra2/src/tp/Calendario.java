@@ -45,14 +45,16 @@ public class Calendario implements CalendarioTDA {
 	
 	public int mayorOcupacion () throws Exception {
 		
-		int tiempoOcupado = 0;
+		float tiempoOcupado = 0;
 		int diaOcupado = 0;
 		
 		for (int i = 0; i < dias.capacidadVector(); i++) {
 			ABBTDA citas = dias.recuperarElemento(i);
 			
-			if (tiempoOcupado(citas) > tiempoOcupado) {
+			float tiempoOcupadoDia = tiempoOcupado(citas);
+			if (tiempoOcupadoDia > tiempoOcupado) {
 				diaOcupado = i;
+				tiempoOcupado = tiempoOcupadoDia;
 			}
 			
 		}
@@ -62,14 +64,16 @@ public class Calendario implements CalendarioTDA {
 	
 	public int menorOcupacion() throws Exception {
 		
-		int tiempoOcupado = 100;
+		float tiempoOcupado = 100;
 		int diaOcupado = 0;
 		
 		for (int i = 0; i < dias.capacidadVector(); i++) {
 			ABBTDA citas = dias.recuperarElemento(i);
 			
-			if (tiempoOcupado(citas) < tiempoOcupado) {
+			float tiempoOcupadoDia = tiempoOcupado(citas);
+			if (tiempoOcupadoDia < tiempoOcupado) {
 				diaOcupado = i;
+				tiempoOcupado = tiempoOcupadoDia;
 			}
 			
 		}
@@ -77,10 +81,21 @@ public class Calendario implements CalendarioTDA {
 		return diaOcupado;
 	}
 	
-	private int tiempoOcupado (ABBTDA citas) {
-		int tiempoOcupado = 0;
+	/**
+	 * Calcula el tiempo ocupado para un dia en particular
+	 * @param citas
+	 * @return
+	 */
+	private float tiempoOcupado (ABBTDA citas) {
 		
-		return tiempoOcupado;
+		if (citas.arbolVacio()) {
+			return 0;
+		} else {
+			return citas.raiz().getDuracion().getTiempoEnHoras() + 
+						tiempoOcupado(citas.hijoIzq()) + 
+						tiempoOcupado(citas.hijoDer());
+		}
+		
 	}
 
 }
