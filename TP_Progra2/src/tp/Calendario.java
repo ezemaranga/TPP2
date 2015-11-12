@@ -37,7 +37,25 @@ public class Calendario implements CalendarioTDA {
 	
 	public ColaTDA obtenerDisponibilidad (int dia) throws Exception {
 		ABBTDA citas = dias.recuperarElemento(dia);
-		return generarColaDisponible(citas);
+		
+		ColaTDA colaCitas = generarColaCitas(citas);
+		
+		ColaTDA resultado = new ColaEstatica();
+		resultado.inicializarCola();
+		
+		while (!colaCitas.colaVacia()) {
+			Tiempo tiempo = colaCitas.primero();
+			
+			
+			
+			Tiempo tiempoDisponible = new Tiempo();
+			
+			
+			resultado.acolar(tiempoDisponible);
+			colaCitas.desacolar();
+		}
+		
+		return resultado;
 	}
 	
 	public int mayorOcupacion () throws Exception {
@@ -83,21 +101,16 @@ public class Calendario implements CalendarioTDA {
 	 * @param citas
 	 * @return
 	 */
-	private ColaTDA generarColaDisponible(ABBTDA citas) {
+	private ColaTDA generarColaCitas(ABBTDA citas) {
 		
 		ColaTDA resultado = new ColaEstatica();
 		resultado.inicializarCola();
 		
 		if (!citas.arbolVacio()) {
 			
-			if (citas.raiz() ) {
-				
-			}
+			ColaTDA colaI = generarColaCitas(citas.hijoIzq());
 			
-			
-			
-			ColaTDA colaI = generarColaDisponible(citas.hijoIzq());
-			ColaTDA colaD = generarColaDisponible(citas.hijoDer());
+			ColaTDA colaD = generarColaCitas(citas.hijoDer());
 			
 			while (!colaI.colaVacia()) {
 				Tiempo tiempo = colaI.primero();
