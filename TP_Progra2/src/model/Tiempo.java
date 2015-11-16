@@ -1,4 +1,5 @@
-package tp;
+package model;
+
 public class Tiempo {
 	
 	private int horas;

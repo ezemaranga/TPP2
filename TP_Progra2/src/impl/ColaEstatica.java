@@ -1,20 +1,20 @@
-package Implementaciones;
+package impl;
 
-import tp.Tiempo;
-import Interfaces.ColaTDA;
+import interfaces.ColaTDA;
+import model.Cita;
 
 public class ColaEstatica implements ColaTDA {
 	
-	Tiempo[] cola;
+	Cita[] cola;
 	int indice;
 
 	public void inicializarCola() {
-		cola = new Tiempo[100];
+		cola = new Cita[100];
 		indice = 0;
 	}
 
-	public void acolar(Tiempo tiempo) {
-		cola[indice] = tiempo;
+	public void acolar(Cita cita) {
+		cola[indice] = cita;
 		indice++;
 	}
 
@@ -29,7 +29,7 @@ public class ColaEstatica implements ColaTDA {
 		return indice == 0;
 	}
 
-	public Tiempo primero() {
+	public Cita primero() {
 		return cola[0];
 	}
 

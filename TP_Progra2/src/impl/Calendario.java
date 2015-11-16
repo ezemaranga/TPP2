@@ -1,15 +1,22 @@
-package tp;
-import Implementaciones.ColaEstatica;
-import Interfaces.ABBTDA;
-import Interfaces.ColaTDA;
+package impl;
+import interfaces.ABBTDA;
+import interfaces.CalendarioTDA;
+import interfaces.ColaTDA;
+import model.Cita;
+import model.Tiempo;
+import Implementaciones.Vector;
 import TDA.VectorTDA;
 
 public class Calendario implements CalendarioTDA {
 	
 	VectorTDA<ABBTDA> dias;
 
-	public void inicializar() {
+	public void inicializar() throws Exception {
+		dias = new Vector<ABBTDA>();
 		dias.inicializarVector(7);
+		for(int i = 0; i < dias.capacidadVector(); i ++) {
+			dias.agregarElemento(i, new ABB());
+		}
 	}
 
 	public void agregar(int dia, Tiempo inicio, Tiempo duracion) throws Exception {
@@ -44,21 +51,21 @@ public class Calendario implements CalendarioTDA {
 		resultado.inicializarCola();
 		
 		while (!colaCitas.colaVacia()) {
-			Tiempo tiempo = colaCitas.primero();
+			Cita tiempo = colaCitas.primero();
 			
+			Cita citaDisponible = new Cita();
 			
+			//analizo si es primera o ultima
+			//genero los bloques disponibles de citas
 			
-			Tiempo tiempoDisponible = new Tiempo();
-			
-			
-			resultado.acolar(tiempoDisponible);
+			resultado.acolar(citaDisponible);
 			colaCitas.desacolar();
 		}
 		
 		return resultado;
 	}
 	
-	public int mayorOcupacion () throws Exception {
+	public int mayorOcupacion() throws Exception {
 		
 		float tiempoOcupado = 0;
 		int diaOcupado = 0;
@@ -97,7 +104,7 @@ public class Calendario implements CalendarioTDA {
 	}
 	
 	/**
-	 * Genera la cola de tiempo disponible para un dia particular 
+	 * Genera la cola de citas para un dia particular 
 	 * @param citas
 	 * @return
 	 */
@@ -110,17 +117,19 @@ public class Calendario implements CalendarioTDA {
 			
 			ColaTDA colaI = generarColaCitas(citas.hijoIzq());
 			
+			colaI.acolar(citas.raiz());
+			
 			ColaTDA colaD = generarColaCitas(citas.hijoDer());
 			
 			while (!colaI.colaVacia()) {
-				Tiempo tiempo = colaI.primero();
-				resultado.acolar(tiempo);
+				Cita cita = colaI.primero();
+				resultado.acolar(cita);
 				colaI.desacolar();
 			}
 			
 			while (!colaD.colaVacia()) {
-				Tiempo tiempo = colaD.primero();
-				resultado.acolar(tiempo);
+				Cita cita = colaD.primero();
+				resultado.acolar(cita);
 				colaD.desacolar();
 			}
 			

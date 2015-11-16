@@ -1,6 +1,6 @@
-package Interfaces;
-import tp.Cita;
-import tp.Tiempo;
+package interfaces;
+import model.Cita;
+import model.Tiempo;
 
 public interface ABBTDA {
 	

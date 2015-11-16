@@ -1,13 +1,13 @@
-package Interfaces;
+package interfaces;
 
-import tp.Tiempo;
+import model.Cita;
 
 public interface ColaTDA {
 	
 	void inicializarCola();
 	
 	//siemre que la cola este inicializada
-	void acolar(Tiempo tiempo);
+	void acolar(Cita tiempo);
 	
 	//siempre que la cola este inicializada y no este vacia 
 	void desacolar();
@@ -16,6 +16,6 @@ public interface ColaTDA {
 	boolean colaVacia();
 	
 	//siempre que la cola este inicializada y no este vacia
-	Tiempo primero();
+	Cita primero();
 
 }

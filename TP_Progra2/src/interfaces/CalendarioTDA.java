@@ -1,10 +1,9 @@
-package tp;
-import Interfaces.ABBTDA;
-
+package interfaces;
+import model.Tiempo;
 
 public interface CalendarioTDA {
 	
-	void inicializar();
+	void inicializar() throws Exception;
 	
 	void agregar(int dia, Tiempo inicio, Tiempo duracion) throws Exception;
 	
@@ -14,4 +13,8 @@ public interface CalendarioTDA {
 	
 	ABBTDA recuperar(int dia) throws Exception;
 
+	int mayorOcupacion() throws Exception;
+	
+	int menorOcupacion() throws Exception;
+	
 }
