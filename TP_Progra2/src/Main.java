@@ -1,5 +1,9 @@
 import impl.Calendario;
+import impl.ColaEstatica;
+import interfaces.ABBTDA;
 import interfaces.CalendarioTDA;
+import interfaces.ColaTDA;
+import model.Cita;
 import model.Tiempo;
 
 
@@ -45,6 +49,120 @@ public class Main {
 		
 		
 		
+	}
+	
+	public int mayorOcupacion(CalendarioTDA calendario) throws Exception {
+		
+		float tiempoOcupado = 0;
+		int diaOcupado = 0;
+		
+		for (int i = 0; i < 7; i++) {
+			ABBTDA citas = calendario.recuperar(i);
+			
+			float tiempoOcupadoDia = tiempoOcupado(citas);
+			if (tiempoOcupadoDia > tiempoOcupado) {
+				diaOcupado = i;
+				tiempoOcupado = tiempoOcupadoDia;
+			}
+			
+		}
+		
+		return diaOcupado;
+	}
+	
+	public int menorOcupacion(CalendarioTDA calendario) throws Exception {
+		
+		float tiempoOcupado = 100;
+		int diaOcupado = 0;
+		
+		for (int i = 0; i < 7; i++) {
+			ABBTDA citas = calendario.recuperar(i);
+			
+			float tiempoOcupadoDia = tiempoOcupado(citas);
+			if (tiempoOcupadoDia < tiempoOcupado) {
+				diaOcupado = i;
+				tiempoOcupado = tiempoOcupadoDia;
+			}
+			
+		}
+		
+		return diaOcupado;
+	}
+	
+	/**
+	 * Calcula el tiempo total ocupado para un dia en particular
+	 * @param citas
+	 * @return
+	 */
+	private float tiempoOcupado (ABBTDA citas) {
+		
+		if (citas.arbolVacio()) {
+			return 0;
+		} else {
+			return citas.raiz().getDuracion().getTiempoEnHoras() + 
+						tiempoOcupado(citas.hijoIzq()) + 
+						tiempoOcupado(citas.hijoDer());
+		}
+		
+	}
+	
+	public ColaTDA obtenerDisponibilidad (CalendarioTDA calendario, int dia) throws Exception {
+		ABBTDA citas = calendario.recuperar(dia);
+		
+		ColaTDA colaCitas = generarColaCitas(citas);
+		
+		ColaTDA resultado = new ColaEstatica();
+		resultado.inicializarCola();
+		
+		while (!colaCitas.colaVacia()) {
+			Cita tiempo = colaCitas.primero();
+			
+			Cita citaDisponible = new Cita();
+			
+			//analizo si es primera o ultima
+			//genero los bloques disponibles de citas
+			
+			resultado.acolar(citaDisponible);
+			colaCitas.desacolar();
+		}
+		
+		return resultado;
+	}
+	
+	/**
+	 * Genera la cola de citas para un dia particular 
+	 * @param citas
+	 * @return
+	 */
+	private ColaTDA generarColaCitas(ABBTDA citas) {
+		
+		ColaTDA resultado = new ColaEstatica();
+		resultado.inicializarCola();
+		
+		if (!citas.arbolVacio()) {
+			
+			ColaTDA colaI = generarColaCitas(citas.hijoIzq());
+			
+			colaI.acolar(citas.raiz());
+			
+			ColaTDA colaD = generarColaCitas(citas.hijoDer());
+			
+			while (!colaI.colaVacia()) {
+				Cita cita = colaI.primero();
+				resultado.acolar(cita);
+				colaI.desacolar();
+			}
+			
+			while (!colaD.colaVacia()) {
+				Cita cita = colaD.primero();
+				resultado.acolar(cita);
+				colaD.desacolar();
+			}
+			
+		}
+		
+		return resultado;
+
 	}
 
 }

@@ -12,9 +12,5 @@ public interface CalendarioTDA {
 	void eliminar(int dia, Tiempo inicio) throws Exception;
 	
 	ABBTDA recuperar(int dia) throws Exception;
-
-	int mayorOcupacion() throws Exception;
-	
-	int menorOcupacion() throws Exception;
 	
 }
