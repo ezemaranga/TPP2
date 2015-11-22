@@ -54,8 +54,41 @@ public class ABB implements ABBTDA {
 	}
 
 	public void eliminarElemento(Tiempo inicio) {
-		// TODO Auto-generated method stub
 		
+		if (raiz != null) {
+			
+			if (raiz.info.getInicio().getTiempoEnHoras() == inicio.getTiempoEnHoras() && raiz.hijoIzq.arbolVacio() && raiz.hijoDer.arbolVacio()) {
+				raiz = null;
+			} else if (raiz.info.getInicio().getTiempoEnHoras() == inicio.getTiempoEnHoras() && !raiz.hijoIzq.arbolVacio()) {
+				raiz.info = this.mayor(raiz.hijoIzq);
+				raiz.hijoIzq.eliminarElemento(raiz.info.getInicio());
+			} else if (raiz.info.getInicio().getTiempoEnHoras() == inicio.getTiempoEnHoras() && raiz.hijoIzq.arbolVacio()) {
+				raiz.info = this.menor(raiz.hijoDer);
+				raiz.hijoDer.eliminarElemento(raiz.info.getInicio());
+			} else if (raiz.info.getInicio().getTiempoEnHoras() < inicio.getTiempoEnHoras()) {
+				raiz.hijoDer.eliminarElemento(inicio);
+			} else {
+				raiz.hijoIzq.eliminarElemento(inicio);
+			}
+			
+		}
+		
+	}
+	
+	private Cita mayor(ABBTDA a) {
+		if (a.hijoDer().arbolVacio()) {
+			return a.raiz();
+		} else {
+			return mayor(a.hijoDer());
+		}
+	}
+	
+	private Cita menor(ABBTDA a) {
+		if (a.hijoIzq().arbolVacio()) {
+			return a.raiz();
+		} else {
+			return menor(a.hijoIzq());
+		}
 	}
 
 }

@@ -6,7 +6,6 @@ import interfaces.ColaTDA;
 import model.Cita;
 import model.Tiempo;
 
-
 public class Main {
 	
 	public static void main(String[] args) throws Exception {
@@ -27,7 +26,12 @@ public class Main {
 		int diaMenosOcupado = menorOcupacion(calendario);
 		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
 		
-		
+		ColaTDA colaDisponiblesDiaCero = obtenerDisponibilidad(calendario, 0);
+		//ColaTDA colaDisponiblesDiaUno = obtenerDisponibilidad(calendario, 1);
+		//ColaTDA colaDisponiblesDiaDos = obtenerDisponibilidad(calendario, 2);
+		//ColaTDA colaDisponiblesDiaTres = obtenerDisponibilidad(calendario, 3);
+		//ColaTDA colaDisponiblesDiaCuatro = obtenerDisponibilidad(calendario, 4);
+			
 	}
 	
 	public static int mayorOcupacion(CalendarioTDA calendario) throws Exception {
@@ -69,7 +73,7 @@ public class Main {
 		return diaOcupado;
 	}
 	
-	public ColaTDA obtenerDisponibilidad(CalendarioTDA calendario, int dia) throws Exception {
+	public static ColaTDA obtenerDisponibilidad(CalendarioTDA calendario, int dia) throws Exception {
 		ABBTDA citas = calendario.recuperar(dia);
 		
 		ColaTDA colaCitas = generarColaCitas(citas);
@@ -110,11 +114,11 @@ public class Main {
 	}
 	
 	/**
-	 * Genera la cola de citas para un dia particular 
+	 * Genera una cola de citas para un dia particular 
 	 * @param citas
 	 * @return
 	 */
-	private ColaTDA generarColaCitas(ABBTDA citas) {
+	private static ColaTDA generarColaCitas(ABBTDA citas) {
 		
 		ColaTDA resultado = new ColaEstatica();
 		resultado.inicializarCola();
