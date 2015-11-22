@@ -22,7 +22,7 @@ public class Tiempo {
 	}
 	
 	public float getTiempoEnHoras() {
-		return horas + minutos / 60;
+		return horas + minutos / (float) 60;
 	}
 
 }

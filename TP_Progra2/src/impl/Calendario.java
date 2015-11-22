@@ -13,7 +13,7 @@ public class Calendario implements CalendarioTDA {
 
 	public void inicializar() throws Exception {
 		dias = new Vector<ABBTDA>();
-		dias.inicializarVector(7);
+		dias.inicializarVector(5);
 		for(int i = 0; i < dias.capacidadVector(); i ++) {
 			dias.agregarElemento(i, new ABB());
 		}

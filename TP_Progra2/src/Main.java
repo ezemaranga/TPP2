@@ -14,49 +14,28 @@ public class Main {
 		CalendarioTDA calendario = new Calendario();
 		calendario.inicializar();
 		
-		//Dia 0 (Lunes) Cita de 9:00 a 10:30
-		Tiempo t1 = new Tiempo();
-		t1.setHoras(9);
-		t1.setMinutos(0);
+		cargarDiaCero(calendario);
+		cargarDiaUno(calendario);
+		cargarDiaDos(calendario);
+		cargarDiaTres(calendario);
+		cargarDiaCuatro(calendario);
 		
-		Tiempo d1 = new Tiempo();
-		d1.setHoras(1);
-		d1.setMinutos(30);
 		
-		calendario.agregar(0, t1, d1);
+		int diaMasOcupado = mayorOcupacion(calendario);
+		System.out.println("Dia mas ocupado: " + diaMasOcupado);
 		
-		//Dia 0 (Lunes) Cita de 11:00 a 11:30
-		Tiempo t2 = new Tiempo();
-		t2.setHoras(11);
-		t2.setMinutos(0);
-				
-		Tiempo d2 = new Tiempo();
-		d2.setHoras(0);
-		d2.setMinutos(30);
-				
-		calendario.agregar(0, t2, d2);
-				
-		//Dia 0 (Lunes) Cita de 14:15 a 14:45
-		Tiempo t3 = new Tiempo();
-		t3.setHoras(14);
-		t3.setMinutos(15);
-				
-		Tiempo d3 = new Tiempo();
-		d3.setHoras(0);
-		d3.setMinutos(30);
-				
-		calendario.agregar(0, t3, d3);
-		
+		int diaMenosOcupado = menorOcupacion(calendario);
+		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
 		
 		
 	}
 	
-	public int mayorOcupacion(CalendarioTDA calendario) throws Exception {
+	public static int mayorOcupacion(CalendarioTDA calendario) throws Exception {
 		
 		float tiempoOcupado = 0;
 		int diaOcupado = 0;
 		
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 5; i++) {
 			ABBTDA citas = calendario.recuperar(i);
 			
 			float tiempoOcupadoDia = tiempoOcupado(citas);
@@ -70,12 +49,12 @@ public class Main {
 		return diaOcupado;
 	}
 	
-	public int menorOcupacion(CalendarioTDA calendario) throws Exception {
+	public static int menorOcupacion(CalendarioTDA calendario) throws Exception {
 		
 		float tiempoOcupado = 100;
 		int diaOcupado = 0;
 		
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 5; i++) {
 			ABBTDA citas = calendario.recuperar(i);
 			
 			float tiempoOcupadoDia = tiempoOcupado(citas);
@@ -89,24 +68,7 @@ public class Main {
 		return diaOcupado;
 	}
 	
-	/**
-	 * Calcula el tiempo total ocupado para un dia en particular
-	 * @param citas
-	 * @return
-	 */
-	private float tiempoOcupado (ABBTDA citas) {
-		
-		if (citas.arbolVacio()) {
-			return 0;
-		} else {
-			return citas.raiz().getDuracion().getTiempoEnHoras() + 
-						tiempoOcupado(citas.hijoIzq()) + 
-						tiempoOcupado(citas.hijoDer());
-		}
-		
-	}
-	
-	public ColaTDA obtenerDisponibilidad (CalendarioTDA calendario, int dia) throws Exception {
+	public ColaTDA obtenerDisponibilidad(CalendarioTDA calendario, int dia) throws Exception {
 		ABBTDA citas = calendario.recuperar(dia);
 		
 		ColaTDA colaCitas = generarColaCitas(citas);
@@ -127,6 +89,23 @@ public class Main {
 		}
 		
 		return resultado;
+	}
+	
+	/**
+	 * Calcula el tiempo total ocupado para un dia en particular
+	 * @param citas
+	 * @return
+	 */
+	private static float tiempoOcupado (ABBTDA citas) {
+		
+		if (citas.arbolVacio()) {
+			return 0;
+		} else {
+			return citas.raiz().getDuracion().getTiempoEnHoras() + 
+						tiempoOcupado(citas.hijoIzq()) + 
+						tiempoOcupado(citas.hijoDer());
+		}
+		
 	}
 	
 	/**
@@ -163,6 +142,148 @@ public class Main {
 		
 		return resultado;
 
+	}
+	
+	/**
+	 * El dia cero tiene ocupadas dos horas y media
+	 * @param calendario
+	 * @throws Exception
+	 */
+	private static void cargarDiaCero(CalendarioTDA calendario) throws Exception {
+		
+		Tiempo t1 = new Tiempo();
+		t1.setHoras(9);
+		t1.setMinutos(0);
+				
+		Tiempo d1 = new Tiempo();
+		d1.setHoras(1);
+		d1.setMinutos(30);
+				
+		calendario.agregar(0, t1, d1);
+				
+		Tiempo t2 = new Tiempo();
+		t2.setHoras(11);
+		t2.setMinutos(0);
+						
+		Tiempo d2 = new Tiempo();
+		d2.setHoras(0);
+		d2.setMinutos(30);
+						
+		calendario.agregar(0, t2, d2);
+						
+		Tiempo t3 = new Tiempo();
+		t3.setHoras(14);
+		t3.setMinutos(15);
+						
+		Tiempo d3 = new Tiempo();
+		d3.setHoras(0);
+		d3.setMinutos(30);
+						
+		calendario.agregar(0, t3, d3);
+	}
+	
+	/**
+	 * El dia uno tiene ocupadas cinco horas
+	 * @param calendario
+	 * @throws Exception
+	 */
+	private static void cargarDiaUno(CalendarioTDA calendario) throws Exception {
+		Tiempo t1 = new Tiempo();
+		t1.setHoras(9);
+		t1.setMinutos(45);
+				
+		Tiempo d1 = new Tiempo();
+		d1.setHoras(1);
+		d1.setMinutos(15);
+				
+		calendario.agregar(0, t1, d1);
+				
+		Tiempo t2 = new Tiempo();
+		t2.setHoras(11);
+		t2.setMinutos(0);
+						
+		Tiempo d2 = new Tiempo();
+		d2.setHoras(3);
+		d2.setMinutos(0);
+						
+		calendario.agregar(0, t2, d2);
+						
+		Tiempo t3 = new Tiempo();
+		t3.setHoras(16);
+		t3.setMinutos(15);
+						
+		Tiempo d3 = new Tiempo();
+		d3.setHoras(0);
+		d3.setMinutos(45);
+						
+		calendario.agregar(0, t3, d3);
+	}
+	
+	/**
+	 * El dia dos tiene ocupadas 45 minutos
+	 * @param calendario
+	 * @throws Exception
+	 */
+	private static void cargarDiaDos(CalendarioTDA calendario) throws Exception {
+		
+		Tiempo t1 = new Tiempo();
+		t1.setHoras(16);
+		t1.setMinutos(15);
+				
+		Tiempo d1 = new Tiempo();
+		d1.setHoras(0);
+		d1.setMinutos(45);
+				
+		calendario.agregar(0, t1, d1);
+	
+	}
+	
+	/**
+	 * El dia tres tiene ocupada una hora 45.
+	 * @param calendario
+	 * @throws Exception
+	 */
+	private static void cargarDiaTres(CalendarioTDA calendario) throws Exception {
+		
+		Tiempo t1 = new Tiempo();
+		t1.setHoras(11);
+		t1.setMinutos(15);
+				
+		Tiempo d1 = new Tiempo();
+		d1.setHoras(1);
+		d1.setMinutos(15);
+				
+		calendario.agregar(0, t1, d1);
+				
+		Tiempo t2 = new Tiempo();
+		t2.setHoras(12);
+		t2.setMinutos(45);
+						
+		Tiempo d2 = new Tiempo();
+		d2.setHoras(0);
+		d2.setMinutos(30);
+						
+		calendario.agregar(0, t2, d2);
+	
+	}
+	
+	/**
+	 * El dia cuatro tiene ocupadas tres horas
+	 * @param calendario
+	 * @throws Exception
+	 */
+	private static void cargarDiaCuatro(CalendarioTDA calendario) throws Exception {
+		
+		Tiempo t1 = new Tiempo();
+		t1.setHoras(15);
+		t1.setMinutos(0);
+				
+		Tiempo d1 = new Tiempo();
+		d1.setHoras(3);
+		d1.setMinutos(0);
+				
+		calendario.agregar(0, t1, d1);
+		
 	}
 
 }
