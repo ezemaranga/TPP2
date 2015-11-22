@@ -19,18 +19,27 @@ public class Main {
 		cargarDiaTres(calendario);
 		cargarDiaCuatro(calendario);
 		
-		
 		int diaMasOcupado = mayorOcupacion(calendario);
 		System.out.println("Dia mas ocupado: " + diaMasOcupado);
 		
 		int diaMenosOcupado = menorOcupacion(calendario);
 		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
 		
-		ColaTDA colaDisponiblesDiaCero = obtenerDisponibilidad(calendario, 0);
+		//ColaTDA colaDisponiblesDiaCero = obtenerDisponibilidad(calendario, 0);
 		//ColaTDA colaDisponiblesDiaUno = obtenerDisponibilidad(calendario, 1);
 		//ColaTDA colaDisponiblesDiaDos = obtenerDisponibilidad(calendario, 2);
 		//ColaTDA colaDisponiblesDiaTres = obtenerDisponibilidad(calendario, 3);
 		//ColaTDA colaDisponiblesDiaCuatro = obtenerDisponibilidad(calendario, 4);
+		
+		//Borro la unica cita que existia para el dia cuatro...
+		Tiempo t1 = new Tiempo();
+		t1.setHoras(15);
+		t1.setMinutos(0);
+		calendario.eliminar(4, t1);
+		
+		//Deberia cambiar el dia menos ocupado al dia numero 4 (quedo sin citas)
+		diaMenosOcupado = menorOcupacion(calendario);
+		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
 			
 	}
 	
