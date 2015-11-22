@@ -58,6 +58,7 @@ public class Main {
 			ABBTDA citas = calendario.recuperar(i);
 			
 			float tiempoOcupadoDia = tiempoOcupado(citas);
+			//System.out.println("Tiempo ocupado del dia " + i + " es " + tiempoOcupadoDia);
 			if (tiempoOcupadoDia < tiempoOcupado) {
 				diaOcupado = i;
 				tiempoOcupado = tiempoOcupadoDia;
@@ -196,7 +197,7 @@ public class Main {
 		d1.setHoras(1);
 		d1.setMinutos(15);
 				
-		calendario.agregar(0, t1, d1);
+		calendario.agregar(1, t1, d1);
 				
 		Tiempo t2 = new Tiempo();
 		t2.setHoras(11);
@@ -206,7 +207,7 @@ public class Main {
 		d2.setHoras(3);
 		d2.setMinutos(0);
 						
-		calendario.agregar(0, t2, d2);
+		calendario.agregar(1, t2, d2);
 						
 		Tiempo t3 = new Tiempo();
 		t3.setHoras(16);
@@ -216,7 +217,7 @@ public class Main {
 		d3.setHoras(0);
 		d3.setMinutos(45);
 						
-		calendario.agregar(0, t3, d3);
+		calendario.agregar(1, t3, d3);
 	}
 	
 	/**
@@ -234,7 +235,7 @@ public class Main {
 		d1.setHoras(0);
 		d1.setMinutos(45);
 				
-		calendario.agregar(0, t1, d1);
+		calendario.agregar(2, t1, d1);
 	
 	}
 	
@@ -253,7 +254,7 @@ public class Main {
 		d1.setHoras(1);
 		d1.setMinutos(15);
 				
-		calendario.agregar(0, t1, d1);
+		calendario.agregar(3, t1, d1);
 				
 		Tiempo t2 = new Tiempo();
 		t2.setHoras(12);
@@ -263,7 +264,7 @@ public class Main {
 		d2.setHoras(0);
 		d2.setMinutos(30);
 						
-		calendario.agregar(0, t2, d2);
+		calendario.agregar(3, t2, d2);
 	
 	}
 	
@@ -282,7 +283,7 @@ public class Main {
 		d1.setHoras(3);
 		d1.setMinutos(0);
 				
-		calendario.agregar(0, t1, d1);
+		calendario.agregar(4, t1, d1);
 		
 	}
 
