@@ -29,7 +29,7 @@ public class Cita {
 		return horaFinalizacion().getTiempoEnHoras() > 18;
 	}
 	
-	private Tiempo horaFinalizacion() {
+	public Tiempo horaFinalizacion() {
 		Tiempo tiempoFin = new Tiempo();
 		
 		int horaFin = inicio.getHoras() + duracion.getHoras();

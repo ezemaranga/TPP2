@@ -25,11 +25,27 @@ public class Main {
 		int diaMenosOcupado = menorOcupacion(calendario);
 		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
 		
-		//ColaTDA colaDisponiblesDiaCero = obtenerDisponibilidad(calendario, 0);
-		//ColaTDA colaDisponiblesDiaUno = obtenerDisponibilidad(calendario, 1);
-		//ColaTDA colaDisponiblesDiaDos = obtenerDisponibilidad(calendario, 2);
-		//ColaTDA colaDisponiblesDiaTres = obtenerDisponibilidad(calendario, 3);
-		//ColaTDA colaDisponiblesDiaCuatro = obtenerDisponibilidad(calendario, 4);
+		ColaTDA colaDisponiblesDiaCero = obtenerDisponibilidad(calendario, 0);
+		System.out.println("*******Disponibilidad dia cero***************");
+		imprimirCola(colaDisponiblesDiaCero);
+		
+		ColaTDA colaDisponiblesDiaUno = obtenerDisponibilidad(calendario, 1);
+		System.out.println("*******Disponibilidad dia uno***************");
+		imprimirCola(colaDisponiblesDiaUno);
+		
+		ColaTDA colaDisponiblesDiaDos = obtenerDisponibilidad(calendario, 2);
+		System.out.println("*******Disponibilidad dia dos***************");
+		imprimirCola(colaDisponiblesDiaDos);
+		
+		ColaTDA colaDisponiblesDiaTres = obtenerDisponibilidad(calendario, 3);
+		System.out.println("*******Disponibilidad dia tres***************");
+		imprimirCola(colaDisponiblesDiaTres);
+		
+		ColaTDA colaDisponiblesDiaCuatro = obtenerDisponibilidad(calendario, 4);
+		System.out.println("*******Disponibilidad dia cuatro***************");
+		imprimirCola(colaDisponiblesDiaCuatro);
+		
+		
 		
 		//Borro la unica cita que existia para el dia cuatro...
 		Tiempo t1 = new Tiempo();
@@ -90,19 +106,63 @@ public class Main {
 		ColaTDA resultado = new ColaEstatica();
 		resultado.inicializarCola();
 		
+		Cita previa = null;
+		
 		while (!colaCitas.colaVacia()) {
-			Cita tiempo = colaCitas.primero();
+			Cita cita = colaCitas.primero();
 			
-			Cita citaDisponible = new Cita();
+			if (previa == null) {
+				
+				if (!cita.esAPrimeraHora()) {
+					
+					Cita citaDisponible = new Cita();
+					
+					Tiempo inicio = new Tiempo();
+					inicio.setHoras(9);
+					inicio.setMinutos(0);
+					
+					citaDisponible.setInicio(inicio);
+					
+					Tiempo duracion = new Tiempo();
+					duracion.setHoras(cita.getInicio().getHoras() - 9);
+					duracion.setMinutos(cita.getInicio().getMinutos());
+					
+					citaDisponible.setDuracion(duracion);
+					
+					resultado.acolar(citaDisponible);
+					
+				} 
+				
+			} else {
+				
+				Cita citaDisponible = new Cita();
+				
+				Tiempo inicio = previa.horaFinalizacion();				
+				citaDisponible.setInicio(inicio);
+				
+				Tiempo duracion = new Tiempo();
+				duracion.setHoras(cita.getInicio().getHoras() - inicio.getHoras());
+				duracion.setMinutos(cita.getInicio().getMinutos() - inicio.getMinutos());
+				
+				citaDisponible.setDuracion(duracion);
+				
+				resultado.acolar(citaDisponible);
+			}
 			
-			//analizo si es primera o ultima
-			//genero los bloques disponibles de citas
-			
-			resultado.acolar(citaDisponible);
+			previa = cita;
 			colaCitas.desacolar();
 		}
 		
 		return resultado;
+	}
+	
+	private static void imprimirCola(ColaTDA cola) {
+		while (!cola.colaVacia()) {
+			Cita cita = cola.primero();
+			System.out.println("Disponible de: " + cita.getInicio().getHoras() + ":" + cita.getInicio().getMinutos() + 
+								" a " + cita.horaFinalizacion().getHoras() + ":" + cita.horaFinalizacion().getMinutos());
+			cola.desacolar();
+		}
 	}
 	
 	/**
