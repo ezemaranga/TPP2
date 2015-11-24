@@ -20,10 +20,14 @@ public class Main {
 		cargarDiaCuatro(calendario);
 		
 		int diaMasOcupado = mayorOcupacion(calendario);
+		System.out.println("*********************************");
 		System.out.println("Dia mas ocupado: " + diaMasOcupado);
+		System.out.println("*********************************");
 		
 		int diaMenosOcupado = menorOcupacion(calendario);
+		System.out.println("*********************************");
 		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
+		System.out.println("*********************************");
 		
 		ColaTDA colaDisponiblesDiaCero = obtenerDisponibilidad(calendario, 0);
 		System.out.println("*******Disponibilidad dia cero***************");
@@ -55,7 +59,9 @@ public class Main {
 		
 		//Deberia cambiar el dia menos ocupado al dia numero 4 (quedo sin citas)
 		diaMenosOcupado = menorOcupacion(calendario);
+		System.out.println("*********************************");
 		System.out.println("Dia menos ocupado: " + diaMenosOcupado);
+		System.out.println("*********************************");
 			
 	}
 	
@@ -151,6 +157,23 @@ public class Main {
 			
 			previa = cita;
 			colaCitas.desacolar();
+		}
+		
+		if (!previa.esAUltimaHora()) {
+			
+			Cita citaDisponible = new Cita();
+			
+			Tiempo inicio = previa.horaFinalizacion();				
+			citaDisponible.setInicio(inicio);
+			
+			Tiempo duracion = new Tiempo();
+			duracion.setHoras(18 - inicio.getHoras());
+			duracion.setMinutos(0 - inicio.getMinutos());
+			
+			citaDisponible.setDuracion(duracion);
+			
+			resultado.acolar(citaDisponible);
+			
 		}
 		
 		return resultado;

@@ -26,7 +26,7 @@ public class Cita {
 	}
 	
 	public boolean esAUltimaHora() {
-		return horaFinalizacion().getTiempoEnHoras() > 18;
+		return horaFinalizacion().getTiempoEnHoras() >= 18;
 	}
 	
 	public Tiempo horaFinalizacion() {
