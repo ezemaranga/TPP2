@@ -141,18 +141,23 @@ public class Main {
 				
 			} else {
 				
-				Cita citaDisponible = new Cita();
+				Tiempo inicio = previa.horaFinalizacion();
 				
-				Tiempo inicio = previa.horaFinalizacion();				
-				citaDisponible.setInicio(inicio);
+				if (inicio.getHoras() != cita.getInicio().getHoras() || inicio.getMinutos() != cita.getInicio().getMinutos()) {
+					
+					Cita citaDisponible = new Cita();
+					citaDisponible.setInicio(inicio);
+					
+					Tiempo duracion = new Tiempo();
+					duracion.setHoras(cita.getInicio().getHoras() - inicio.getHoras());
+					duracion.setMinutos(cita.getInicio().getMinutos() - inicio.getMinutos());
+					
+					citaDisponible.setDuracion(duracion);
+					
+					resultado.acolar(citaDisponible);
+					
+				}
 				
-				Tiempo duracion = new Tiempo();
-				duracion.setHoras(cita.getInicio().getHoras() - inicio.getHoras());
-				duracion.setMinutos(cita.getInicio().getMinutos() - inicio.getMinutos());
-				
-				citaDisponible.setDuracion(duracion);
-				
-				resultado.acolar(citaDisponible);
 			}
 			
 			previa = cita;
