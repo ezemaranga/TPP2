@@ -164,7 +164,25 @@ public class Main {
 			colaCitas.desacolar();
 		}
 		
-		if (!previa.esAUltimaHora()) {
+		if (previa == null) {
+			
+			Cita citaDisponible = new Cita();
+			
+			Tiempo inicio = new Tiempo();
+			inicio.setHoras(9);
+			inicio.setMinutos(0);
+			
+			citaDisponible.setInicio(inicio);
+			
+			Tiempo duracion = new Tiempo();
+			duracion.setHoras(9);
+			duracion.setMinutos(0);
+			
+			citaDisponible.setDuracion(duracion);
+			
+			resultado.acolar(citaDisponible);
+		
+		} else if (!previa.esAUltimaHora()) {
 			
 			Cita citaDisponible = new Cita();
 			
